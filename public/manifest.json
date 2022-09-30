@@ -15,7 +15,8 @@
   "content_scripts": [
     {
       "matches": ["https://*.amazon.com/*"],
-      "run-at": "document_idle"
+      "run-at": "document_idle",
+      "js": ["background.js"]
     }
   ]
 }
