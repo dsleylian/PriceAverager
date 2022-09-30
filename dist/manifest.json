@@ -1,0 +1,22 @@
+{
+  "name": "Price Averager",
+  "description": "project for Datacy interview",
+  "version": "1.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": ["storage", "tabs", "scripting"],
+  "host_permissions": ["https://*.amazon.com/*"],
+  "browser_action": {},
+  "content_scripts": [
+    {
+      "matches": ["https://*.amazon.com/*"],
+      "run-at": "document_idle",
+      "js": ["foreground.js"]
+    }
+  ]
+}
