@@ -11,6 +11,7 @@
   },
   "permissions": ["storage", "tabs", "scripting"],
   "host_permissions": ["https://*.amazon.com/*"],
+  "browser_action": {},
   "content_scripts": [
     {
       "matches": ["https://*.amazon.com/*"],
