@@ -39,7 +39,7 @@ const Popup = () => {
     <div>
       {/* disaply different views based on whether or not we are on amazon */}
       {isAmazon ? (
-        <p> Average: {average?.toPrecision(3)}</p>
+        <p> Average: {average?.toPrecision(4)}</p>
       ) : (
         <p>This extension only works for Amazon.com searches</p>
       )}

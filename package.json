@@ -1,7 +1,7 @@
 {
   "name": "priceaverager",
   "version": "1.0.0",
-  "description": "",
+  "description": "project for Datacy interview",
   "main": "index.js",
   "scripts": {
     "dev": "webpack --watch --config webpack.dev.js",
