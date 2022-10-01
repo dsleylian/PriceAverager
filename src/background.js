@@ -1,4 +1,4 @@
-chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+chrome?.tabs?.query({ active: true, currentWindow: true }, (tabs) => {
   const activeTabId = tabs[0].id;
   const tabUrl = tabs[0].url;
   let dollars;
@@ -6,8 +6,9 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
   let dollarSum;
   let centsSum;
   let total;
+  const isAmazon = tabUrl.includes("amazon.com/s");
 
-  if (tabUrl.includes("amazon.com/s")) {
+  if (isAmazon) {
     chrome.scripting.executeScript({
       target: { tabId: activeTabId },
       function: () => {
@@ -28,15 +29,14 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         console.log("total", total);
         if (dollars && cents) {
           chrome.storage.local.set({ average: total }, function () {});
+          chrome.runtime.sendMessage(
+            { greeting: "hello" },
+            function (response) {
+              console.log("message sent");
+            }
+          );
         }
       }
     });
-    chrome.tabs.sendMessage(
-      activeTabId,
-      { greeting: "hello" },
-      function (response) {
-        console.log("message sent");
-      }
-    );
   }
 });

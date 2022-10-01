@@ -9,7 +9,7 @@
   "action": {
     "default_popup": "popup.html"
   },
-  "permissions": ["storage", "tabs", "scripting"],
+  "permissions": ["storage", "tabs", "scripting", "webNavigation"],
   "host_permissions": ["https://*.amazon.com/*"],
   "content_scripts": [
     {

@@ -7,14 +7,12 @@ const root = createRoot(container);
 const Popup = () => {
   const [average, setAverage] = useState(0);
   const [recevied, setReceived] = useState(false);
+  const [isAmazon, setIsAmazon] = useState(false);
 
+  console.log(recevied, average, isAmazon);
   chrome.runtime.onMessage.addListener(function (request, sender) {
-    console.log(
-      sender.tab
-        ? "from a content script:" + sender.tab.url
-        : "from the extension"
-    );
     if (request.greeting === "hello") {
+      console.log(request.greeting);
       setReceived(true);
     }
   });
@@ -23,11 +21,26 @@ const Popup = () => {
     chrome.storage.local.get(["average"], function (result) {
       setAverage(result.average);
     });
-  }, []);
+  }, [recevied]);
+
+  useEffect(() => {
+    chrome?.tabs?.query({ active: true, currentWindow: true }, (tabs) => {
+      const tabUrl = tabs[0].url;
+      const isAmazon = tabUrl.includes("amazon.com/s");
+      setIsAmazon(isAmazon);
+    });
+    if (!isAmazon) {
+      setAverage(0);
+    }
+  }, [isAmazon]);
 
   return (
     <div>
-      <p> Average: {average.toPrecision(3)}</p>
+      {isAmazon ? (
+        <p> Average: {average?.toPrecision(3)}</p>
+      ) : (
+        <p>This extension only works for Amazon.com searches</p>
+      )}
     </div>
   );
 };
